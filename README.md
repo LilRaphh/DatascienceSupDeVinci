@@ -373,7 +373,7 @@ Toutes les réponses suivent le format standardisé :
 }
 ```
 
-## Auteur
+## Auteur - COLNOT Raphael
 
 Projet réalisé dans le cadre du Parcours Data Scientist FastAPI.
 
