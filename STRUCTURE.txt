@@ -1,0 +1,110 @@
+STRUCTURE DU PROJET
+===================
+
+fastapi-data-scientist/
+│
+├── Configuration Docker
+│   ├── Dockerfile                  # Image Docker de l'application
+│   ├── docker-compose.yml          # Orchestration des conteneurs
+│   ├── .dockerignore               # Fichiers à ignorer par Docker
+│   └── .gitignore                  # Fichiers à ignorer par Git
+│
+├── Configuration Python
+│   └── requirements.txt            # Dépendances Python
+│
+├── Documentation
+│   ├── README.md                   # Documentation complète
+│   ├── QUICKSTART.md               # Guide de démarrage rapide
+│   ├── TESTS.md                    # Guide de tests
+│   ├── STRUCTURE.txt               # Ce fichier
+│   └── exemples_python.py          # Exemples d'utilisation Python
+│
+├── Application FastAPI
+│   └── app/
+│       ├── __init__.py
+│       ├── main.py                 # Point d'entrée FastAPI
+│       ├── config.py               # Configuration globale
+│       │
+│       ├── routers/                # Endpoints par phase
+│       │   ├── __init__.py
+│       │   ├── dataset.py          # Génération de datasets
+│       │   ├── clean.py            # TP1 - Nettoyage
+│       │   ├── eda.py              # TP2 - EDA
+│       │   ├── mv.py               # TP3 - Analyse multivariée
+│       │   ├── ml.py               # TP4 - ML Baseline
+│       │   └── ml2.py              # TP5 - ML Avancé
+│       │
+│       ├── services/               # Logique métier
+│       │   ├── __init__.py
+│       │   ├── dataset_generator.py # Génération de données
+│       │   ├── clean_service.py     # Service de nettoyage
+│       │   ├── eda_service.py       # Service EDA
+│       │   ├── mv_service.py        # Service multivarié
+│       │   ├── ml_service.py        # Service ML baseline
+│       │   └── ml2_service.py       # Service ML avancé
+│       │
+│       ├── schemas/                # Modèles Pydantic
+│       │   ├── __init__.py
+│       │   ├── common.py           # Schémas communs
+│       │   ├── clean.py            # Schémas TP1
+│       │   ├── eda.py              # Schémas TP2
+│       │   ├── mv.py               # Schémas TP3
+│       │   ├── ml.py               # Schémas TP4
+│       │   └── ml2.py              # Schémas TP5
+│       │
+│       └── utils/                  # Utilitaires
+│           ├── __init__.py
+│           └── storage.py          # Gestion stockage
+│
+└── Dossiers de données (créés au runtime)
+    ├── models/                     # Modèles ML sauvegardés
+    │   └── .gitkeep
+    └── data/                       # Datasets générés
+        └── .gitkeep
+
+STATISTIQUES
+============
+
+Fichiers Python : 30+
+Lignes de code : ~3500+
+Endpoints API : 25+
+Phases couvertes : 5 (Clean, EDA, MV, ML, ML2)
+
+TECHNOLOGIES
+============
+
+Backend : FastAPI, Uvicorn
+Data Science : Pandas, NumPy, Scikit-learn
+Visualisation : Plotly
+Validation : Pydantic
+Infrastructure : Docker, Docker Compose
+Stockage : Joblib (sérialisation modèles)
+
+PRINCIPES D'ARCHITECTURE
+=========================
+
+1. Séparation des responsabilités
+   - Routers : Gestion des requêtes HTTP
+   - Services : Logique métier
+   - Schemas : Validation des données
+   - Utils : Fonctions utilitaires
+
+2. Code commenté en français
+   - Aucun emoji dans le code
+   - Commentaires explicatifs détaillés
+   - Docstrings pour chaque fonction
+
+3. Standardisation
+   - Format de réponse uniforme (meta/result/report/artifacts)
+   - Schémas Pydantic pour la validation
+   - Gestion d'erreurs cohérente
+
+4. Reproductibilité
+   - Seed pour génération de données
+   - Sauvegarde des modèles avec métadonnées
+   - Docker pour environnement identique
+
+5. Testabilité
+   - Swagger UI pour tests manuels
+   - Scripts Python pour tests automatisés
+   - Documentation complète
