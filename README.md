@@ -12,6 +12,14 @@ Ce projet implémente une API REST avec FastAPI permettant de réaliser l'ensemb
 4. **TP4 - ML Baseline** : Entraînement et prédiction de modèles
 5. **TP5 - ML Avancé** : Optimisation d'hyperparamètres et explicabilité
 
+## Interface Graphique (Web UI)
+
+Une interface graphique web est incluse pour interagir avec l’API sans écrire de requêtes manuelles.
+
+- Accès : http://localhost:8088
+- Technologie : HTML / CSS / JavaScript + Nginx (Docker)
+- Objectif : démonstration, pédagogie, tests rapides
+
 ## Architecture
 
 ```
@@ -49,6 +57,13 @@ fastapi-data-scientist/
 ├── models/                    # Modèles sauvegardés
 └── data/                      # Datasets générés
 ```
+
+Services disponibles :
+- API : http://localhost:8000
+- Swagger : http://localhost:8000/docs
+- Interface Web : http://localhost:8088
+- Jupyter : http://localhost:8888
+
 
 ## Installation et Démarrage
 
