@@ -8,16 +8,15 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      # Montage du code pour le hot-reload en developpement
       - ./app:/code/app
-      # Montage des repertoires de stockage
       - ./models:/code/models
       - ./data:/code/data
     environment:
-      # Variables d'environnement pour la configuration
       - ENVIRONMENT=development
       - LOG_LEVEL=info
     restart: unless-stopped
+
+  # Service Jupyter Notebook
   jupyter:
     image: jupyter/datascience-notebook:latest
     container_name: jupyter-datascientist-notebook
@@ -28,5 +27,24 @@ services:
       - ./data:/home/jovyan/data
     environment:
       - ENVIRONMENT=development
-    command: jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser --allow-root --NotebookApp.token='' --NotebookApp.password=''
+    command: >
+      jupyter notebook
+      --ip=0.0.0.0
+      --port=8888
+      --no-browser
+      --allow-root
+      --NotebookApp.token=''
+      --NotebookApp.password=''
+    restart: unless-stopped
+
+  # Service Interface Web (HTML / CSS / JS)
+  web:
+    image: nginx:alpine
+    container_name: fastapi-datascientist-web
+    ports:
+      - "8088:80"
+    volumes:
+      - ./web-interface:/usr/share/nginx/html:ro
+    depends_on:
+      - api
     restart: unless-stopped
