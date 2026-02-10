@@ -18,6 +18,18 @@ from app.services.dataset_generator import dataset_generator
 
 router = APIRouter()
 
+def safe_dataframe(df, n=20):
+    """
+    Convertit un dataframe en JSON-safe dict (max n lignes)
+    - remplace NaN par "NA"
+    - remplace inf/-inf par 0
+    - convertit tout en str
+    """
+    sample = df.head(n).copy()
+    sample = sample.fillna("NA")
+    sample = sample.replace([float("inf"), float("-inf")], 0)
+    return sample.astype(str).to_dict(orient="records")
+
 
 @router.post("/generate", response_model=BaseResponse)
 async def generate_dataset(request: DatasetGenerateRequest):
@@ -50,7 +62,7 @@ async def generate_dataset(request: DatasetGenerateRequest):
         
         # Creer un echantillon (max 20 lignes)
         sample_size = min(20, len(df))
-        data_sample = df.head(sample_size).to_dict('records')
+        data_sample = safe_dataframe(df, n=sample_size)
         
         # Creer l'objet DatasetInfo
         dataset_info = DatasetInfo(
