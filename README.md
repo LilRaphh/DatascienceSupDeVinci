@@ -56,7 +56,7 @@ fastapi-data-scientist/
 
 1. **Cloner le repository**
 ```bash
-git clone <votre-repo>
+git clone https://github.com/LilRaphh/DatascienceSupDeVinci
 cd fastapi-data-scientist
 ```
 
