@@ -20,29 +20,11 @@ async def ml_train(
     dataset_id: str,
     params: MlTrainParams
 ):
-    """
-    Entraine un modele de classification binaire.
-    
-    Modeles disponibles:
-    - logreg: Regression logistique (lineaire, rapide, interpretable)
-    - rf: Random Forest (non-lineaire, plus puissant)
-    
-    Le modele est automatiquement sauvegarde et peut etre reutilise
-    pour faire des predictions via son model_id.
-    
-    Args:
-        dataset_id: Identifiant du dataset d'entrainement
-        params: Parametres (type de modele, hyperparametres, test_size)
-        
-    Returns:
-        model_id + metriques train/test + features utilisees
-    """
     try:
         df = dataset_generator.get_dataset(dataset_id)
-        
-        model_id, result = ml_service.train(df, params)
-        result.dataset_id = dataset_id
-        
+
+        model_id, result = ml_service.train(dataset_id, df, params)
+
         return BaseResponse(
             meta=ResponseMeta(
                 dataset_id=dataset_id,
@@ -58,9 +40,12 @@ async def ml_train(
                 }
             )
         )
-    
+
     except KeyError as e:
         raise HTTPException(status_code=404, detail=str(e))
+    except HTTPException as e:
+        # pour laisser passer les 400 propres du service (target absente, etc.)
+        raise e
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erreur entrainement: {str(e)}")
 

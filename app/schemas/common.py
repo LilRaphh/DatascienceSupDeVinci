@@ -78,7 +78,7 @@ class DatasetGenerateRequest(BaseModel):
     Requete pour generer un dataset.
     Permet de specifier la phase, le seed et le nombre de lignes.
     """
-    phase: str = Field("clear", description="Phase du projet (clean/eda/mv/ml/ml2)")
+    phase: str = Field("clean", description="Phase du projet (clean/eda/mv/ml/ml2)")
     seed: Optional[int] = Field(42, description="Seed pour la reproductibilite")
     n: Optional[int] = Field(1000, description="Nombre de lignes a generer")
 
